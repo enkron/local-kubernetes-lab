@@ -32,7 +32,7 @@ kubernetes toolchains along with dependencies like `containerd` or `cni`
 plugins.
 
 **NOTE**: *all package versions are currently hardcoded into the file, so
-need to pay attention to maintenance*
+need to pay attention to maintenance*\
 **NOTE**: *change $SSH_PUBKEY variable to actual public key*
 
 [1]: https://cloudinit.readthedocs.io/en/latest/index.html
