@@ -45,7 +45,7 @@ runcmd:
 users:
   - name: xguestx
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmsadeEW/t/Hyzk6GkMzPQBUm0/FutBJRbCUqaJMED0
+      - "$SSH_PUBKEY"
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     groups: sudo
     shell: /bin/bash
