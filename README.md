@@ -1,6 +1,6 @@
 # prerequisites
 
-first check [kvm][https://linux-kvm.org] (kernel-based virtual machine
+first check [kvm](https://linux-kvm.org) (kernel-based virtual machine
 for Linux on x86) is enabled in system
 
 ```bash
@@ -27,7 +27,7 @@ Cloud images use [cloud-init][1] method for instance initialisation
 curl -fLO# http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 ```
 
-[user-data][/user-data] file contains instructions for bootstrapping
+[user-data](/user-data) file contains instructions for bootstrapping
 kubernetes toolchains along with dependencies like `containerd` or `cni`
 plugins.
 
