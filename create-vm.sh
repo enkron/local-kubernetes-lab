@@ -7,28 +7,36 @@ unset -v VM_TAG
 BASE_IMAGE_LOC="http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
 BASE_IMAGE_TAG=$(echo $BASE_IMAGE_LOC |cut -d/ -f6)
 USER_DATA=
+SSH_PUBKEY=
 
 usage() {
-    echo 'usage: create-vm.sh -d USER_DATA VM_TAG' && exit 0
+    echo 'usage: create-vm.sh -d USER_DATA -k SSH_PUBKEY VM_TAG' && exit 0
 }
 
-while getopts "d:" flags; do
+while getopts "d:k:" flags; do
     case "${flags}" in
         d)
             USER_DATA="${OPTARG}"
             cp "${USER_DATA}" user-data || exit 1
             ;;
-
-        *) usage ;;
+        k)
+            SSH_PUBKEY="$(cat $OPTARG)"
+            ;;
+        *)
+            usage
+            ;;
     esac
 done
 
 VM_TAG="${@:$OPTIND:1}"
 
-if [ -z "${USER_DATA}" ] && [ -z "${VM_TAG}" ]; then
+sed -i "s#\$SSH_PUBKEY#${SSH_PUBKEY}#g" ./user-data
+
+if [ -z "${USER_DATA}" ] && [ -z "${VM_TAG}" ] && [ -z "${SSH_PUBKEY}" ]; then
     usage
 fi
-: "${USER_DATA:?no user-data supplied}" "${VM_TAG:?vm is not supplied}"
+
+: "${USER_DATA:?no user-data supplied}" "${VM_TAG:?vm is not supplied}" "${SSH_PUBKEY:?ssh key is not supplied}"
 test -s "${BASE_IMAGE_TAG}" || curl -fL# -o "${BASE_IMAGE_TAG}" "${BASE_IMAGE_LOC}"
 
 qemu-img create -b $BASE_IMAGE_TAG -f qcow2 -F qcow2 "${VM_TAG}.img" 10G
