@@ -81,6 +81,15 @@ kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/we
 This command deploys `weave net` that connects docker containers across
 multiple hosts and enables their automatic discovery
 
+### join nodes to the cluster
+
+```bash
+kubeadm token create --print-join-command
+```
+
+use an output from the command above to join a worker node to the
+cluster
+
 # virsh tool commmands
 
 `virsh` is a cli for virsh guest domains
