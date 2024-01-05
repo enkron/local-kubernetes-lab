@@ -1,0 +1,70 @@
+#cloud-config
+
+write_files:
+  - path: /etc/sysctl.d/10-k8s.conf
+    permissions: '0644'
+    content: |
+      net.ipv4.ip_forward=1
+      net.bridge.bridge-nf-call-iptables=1
+      net.bridge.bridge-nf-call-ip6tables=1
+
+  - path: /etc/modules-load.d/k8s.conf
+    permissions: '0644'
+    content: |
+      overlay
+      br_netfilter
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gpg
+
+runcmd:
+  - [sysctl, --system]
+  - [modprobe, overlay]
+  - [modprobe, br_netfilter]
+  - [mkdir, -pm, '0755', '/etc/apt/keyrings']
+  - curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  - echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' > /etc/apt/sources.list.d/kubernetes.list
+  - [apt-get, update]
+  - [apt-get, install, -y, kubelet, kubeadm, kubectl]
+  - [apt-mark, hold, kubelet, kubeadm, kubectl]
+  - curl -sSfLO https://github.com/containerd/containerd/releases/download/v1.7.9/containerd-1.7.9-linux-amd64.tar.gz
+  - [tar, -xzvf, 'containerd-1.7.9-linux-amd64.tar.gz', -C, '/usr/local']
+  - [mkdir, -p, '/usr/local/lib/systemd/system']
+  - curl -sSfL https://raw.githubusercontent.com/containerd/containerd/main/containerd.service > /usr/local/lib/systemd/system/containerd.service
+  - [systemctl, daemon-reload]
+  - [systemctl, enable, --now, containerd]
+  - curl -sSfL -O https://github.com/opencontainers/runc/releases/download/v1.1.10/runc.amd64
+  - [install, -m, '0755', 'runc.amd64', '/usr/local/sbin/runc']
+  - curl -sSfLO https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+  - [mkdir, -p, '/opt/cni/bin']
+  - [tar, -xzvf, 'cni-plugins-linux-amd64-v1.3.0.tgz', -C, '/opt/cni/bin/']
+
+users:
+  - name: xguestx
+    ssh_authorized_keys:
+      - "$SSH_PUBKEY"
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: sudo
+    shell: /bin/bash
+  - name: root
+    lock_passwd: true
+
+locale: en_US.UTF-8
+
+timezone: UTC
+
+ssh_deletekeys: 1
+
+package_upgrade: true
+
+ssh_pwauth: false
+
+manage_etc_hosts: true
+
+power_state:
+  mode: reboot
+  timeout: 30
+  condition: true
