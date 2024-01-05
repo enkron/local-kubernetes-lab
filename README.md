@@ -111,3 +111,9 @@ shutdown vm gracefully
 ```bash
 virsh shutdown <VM_TAG>
 ```
+
+start a vm
+
+```bash
+virsh start --domain <VM_TAG>
+```
