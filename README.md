@@ -38,12 +38,12 @@ need to pay attention to maintenance*\
 [1]: https://cloudinit.readthedocs.io/en/latest/index.html
 
 ## kubernetes [toolchains][2]
-`kubeadm`: bootstrap a cluster. Should be installed on all the hosts,
-`kubelet`: component that runs on all of machines in a cluster and does
-           things like starting pods and containers,
+`kubeadm`: bootstrap a cluster. Should be installed on all the hosts,\
+`kubelet`: component that runs on all of machines in a cluster and does\
+           things like starting pods and containers,\
 `kubectl`: command line utility to talk to a cluster.
 
-Note: `kubelet` won't work with a swap file.
+**NOTE**: *`kubelet` won't work with a swap file*
 
 [2]: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-0
 
