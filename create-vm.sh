@@ -20,7 +20,7 @@ while getopts "d:k:" flags; do
             cp "${USER_DATA}" user-data || exit 1
             ;;
         k)
-            SSH_PUBKEY="$(cat $OPTARG)"
+            test -s "${OPTARG}" && SSH_PUBKEY="$(cat $OPTARG)" || { echo $OPTARG not a file; exit 1; }
             ;;
         *)
             usage
