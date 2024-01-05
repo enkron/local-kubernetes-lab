@@ -41,6 +41,7 @@ runcmd:
   - curl -sSfLO https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
   - [mkdir, -p, '/opt/cni/bin']
   - [tar, -xzvf, 'cni-plugins-linux-amd64-v1.3.0.tgz', -C, '/opt/cni/bin/']
+  - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |bash
 
 users:
   - name: xguestx
