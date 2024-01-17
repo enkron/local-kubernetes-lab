@@ -1,3 +1,9 @@
+# networking
+
+The network infrastructure will be used by kvm vms with libvirt (`virsh`)
+
+ref: https://www.enkron.org/pub/entries/2.html
+
 # prerequisites
 
 first check [kvm](https://linux-kvm.org) (kernel-based virtual machine

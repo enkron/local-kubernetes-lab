@@ -50,7 +50,7 @@ virt-install \
     --disk path="${VM_TAG}.img",format=qcow2 \
     --disk path="${VM_TAG}-cidata.iso",device=cdrom \
     --os-variant=ubuntu20.04 \
-    --network bridge=virbr0,model=virtio \
+    --network bridge=k8s-br0,model=virtio \
     --graphics vnc,listen=0.0.0.0 \
     --noautoconsole
 
