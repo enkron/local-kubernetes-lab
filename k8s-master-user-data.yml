@@ -32,16 +32,29 @@ runcmd:
   - [apt-mark, hold, kubelet, kubeadm, kubectl]
   - curl -sSfLO https://github.com/containerd/containerd/releases/download/v1.7.9/containerd-1.7.9-linux-amd64.tar.gz
   - [tar, -xzvf, 'containerd-1.7.9-linux-amd64.tar.gz', -C, '/usr/local']
+  - [rm, 'containerd-1.7.9-linux-amd64.tar.gz']
   - [mkdir, -p, '/usr/local/lib/systemd/system']
   - curl -sSfL https://raw.githubusercontent.com/containerd/containerd/main/containerd.service > /usr/local/lib/systemd/system/containerd.service
   - [systemctl, daemon-reload]
   - [systemctl, enable, --now, containerd]
   - curl -sSfL -O https://github.com/opencontainers/runc/releases/download/v1.1.10/runc.amd64
   - [install, -m, '0755', 'runc.amd64', '/usr/local/sbin/runc']
+  - [rm, 'runc.amd64']
   - curl -sSfLO https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
   - [mkdir, -p, '/opt/cni/bin']
   - [tar, -xzvf, 'cni-plugins-linux-amd64-v1.3.0.tgz', -C, '/opt/cni/bin/']
+  - [rm, 'cni-plugins-linux-amd64-v1.3.0.tgz']
+  - [kubeadm, init]
+  - [mkdir, -p, '/root/.kube']
+  - [cp, -i, '/etc/kubernetes/admin.conf', '/root/.kube/config']
+  - [mkdir, -p, '/home/xguestx/.kube']
+  - [cp, -i, '/etc/kubernetes/admin.conf', 'home/xguestx/.kube/config']
+  - [chown, -R, 'xguestx:', '/home/xguestx/.kube']
   - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |bash
+  - kubeadm completion bash > /etc/bash_completion.d/kubeadm
+  - kubectl completion bash > /etc/bash_completion.d/kubectl
+  - helm completion bash > /etc/bash_completion.d/helm
+  - curl -sSfL https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml > /home/xguestx/weave-daemonset-k8s.yaml
 
 users:
   - name: xguestx
