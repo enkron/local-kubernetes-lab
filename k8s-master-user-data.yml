@@ -65,6 +65,10 @@ ssh_pwauth: false
 
 manage_etc_hosts: true
 
+hostname: $HOSTNAME
+fqdn: $HOSTNAME.k8s.local
+prefer_fqdn_over_hostname: true
+
 power_state:
   mode: reboot
   timeout: 30

@@ -31,6 +31,7 @@ done
 VM_TAG="${@:$OPTIND:1}"
 
 sed -i "s#\$SSH_PUBKEY#${SSH_PUBKEY}#g" ./user-data
+sed -i "s#\$HOSTNAME#${VM_TAG}#g" ./user-data
 
 if [ -z "${USER_DATA}" ] && [ -z "${VM_TAG}" ] && [ -z "${SSH_PUBKEY}" ]; then
     usage
