@@ -15,6 +15,8 @@ kubectl create namespace ci # creates the namespace called 'ci'
 
 # create admin service account manifest, volume, deployment manifest & service
 
+change `nodeAffinity` selector to the hostname of a worker node in the `volume.yml`
+
 ```bash
 kubectl apply -f '*.yml'
 ```
