@@ -47,7 +47,7 @@ runcmd:
   - kubeadm completion bash > /etc/bash_completion.d/kubeadm
 
 users:
-  - name: xguestx
+  - name: k8sadmin
     ssh_authorized_keys:
       - "$SSH_PUBKEY"
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]

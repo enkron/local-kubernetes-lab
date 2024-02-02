@@ -47,17 +47,17 @@ runcmd:
   - [kubeadm, init]
   - [mkdir, -p, '/root/.kube']
   - [cp, -i, '/etc/kubernetes/admin.conf', '/root/.kube/config']
-  - [mkdir, -p, '/home/xguestx/.kube']
-  - [cp, -i, '/etc/kubernetes/admin.conf', 'home/xguestx/.kube/config']
-  - [chown, -R, 'xguestx:', '/home/xguestx/.kube']
+  - [mkdir, -p, '/home/k8sadmin/.kube']
+  - [cp, -i, '/etc/kubernetes/admin.conf', '/home/k8sadmin/.kube/config']
+  - [chown, -R, 'k8sadmin:', '/home/k8sadmin/.kube']
   - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |bash
   - kubeadm completion bash > /etc/bash_completion.d/kubeadm
   - kubectl completion bash > /etc/bash_completion.d/kubectl
   - helm completion bash > /etc/bash_completion.d/helm
-  - curl -sSfL https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml > /home/xguestx/weave-daemonset-k8s.yaml
+  - curl -sSfL https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml > /home/k8sadmin/weave-daemonset-k8s.yaml
 
 users:
-  - name: xguestx
+  - name: k8sadmin
     ssh_authorized_keys:
       - "$SSH_PUBKEY"
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
