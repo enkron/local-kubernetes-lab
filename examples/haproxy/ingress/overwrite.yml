@@ -1,0 +1,6 @@
+---
+controller:
+  ## Pod Node assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  nodeSelector:
+    app.jenkins.workload.type: load-balancer
