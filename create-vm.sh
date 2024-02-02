@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# The script downloads qcow2 nocloud image and builds kvm based instance
+# on top of it.
+#
+# Base image locations:
+# Ubuntu 20.04: http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+# Debian 10: https://cloud.debian.org/images/cloud/buster/latest/debian-10-nocloud-amd64.qcow2
+# (currently debian is not working with the script properly)
 
 set -u -o pipefail
 
