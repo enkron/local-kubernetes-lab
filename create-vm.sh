@@ -50,7 +50,7 @@ test -s "${BASE_IMAGE_TAG}" || curl -fL# -o "${BASE_IMAGE_TAG}" "${BASE_IMAGE_LO
 
 qemu-img create -b $BASE_IMAGE_TAG -f qcow2 -F qcow2 "${VM_TAG}.img" 10G
 echo -e "instance-id: ${VM_TAG}\nlocal-hostname: ${VM_TAG}" > meta-data
-genisoimage -output "${VM_TAG}-cidata.iso" -V cidata -r -J user-data meta-data
+genisoimage -output "${VM_TAG}-cidata.iso" -V cidata -r -input-charset utf-8 -J user-data meta-data
 virt-install \
     --name="${VM_TAG}" \
     --ram=2048 \
