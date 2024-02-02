@@ -13,7 +13,7 @@ set -u -o pipefail
 unset -v VM_TAG
 
 BASE_IMAGE_LOC="http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
-BASE_IMAGE_TAG=$(echo $BASE_IMAGE_LOC |cut -d/ -f6)
+BASE_IMAGE_TAG=$(echo $BASE_IMAGE_LOC |rev |cut -d/ -f1| rev)
 USER_DATA=
 SSH_PUBKEY=
 
