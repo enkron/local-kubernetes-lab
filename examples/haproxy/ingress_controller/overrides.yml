@@ -1,5 +1,8 @@
 ---
 controller:
+  service:
+    type: NodePort
+
   ## Pod Node assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector:
