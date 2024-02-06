@@ -2,17 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web-ingress
-  namespace: default
+  namespace: dev
 spec:
   ingressClassName: haproxy
   rules:
-    - host: foo.bar
+    - host: bar.buzz
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: app
+                name: example-echo-server
                 port:
-                  name: port-1
+                  name: http-port
